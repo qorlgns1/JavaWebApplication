@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>파라미터 입력</title>
+</head>
+<body>
+	<a href="process1.jsp?boardnum=120&nickname=kihoonbae">파라미터 직접 작성</a>
+	<br/>
+	<!-- 항상 form 에서는 action이 처리할 서버의 URL
+	method 가 전송 방식으로 생략하면 GET
+	file이 있는 경우 enctype을 multipart/form-data로 설정
+	클라이언트에서 유효성 검사를 하고자 하는 경우에는 id를 부여 -->
+	<form action="process2.jsp" method="get" charset="utf8">
+		이름<input type="text" name="name" /><br/>
+		성별<input type="radio" name="gender" value="man" checked="checked"/>남자
+		<input type="radio" name="gender" value="woman" />여자 <br/>
+		취미<input type="checkbox" name="hobby" value="reading" />독서
+		<input type="checkbox" name="hobby" value="computer" />컴퓨터
+		<input type="checkbox" name="hobby" value="game" />게임 <br/>
+		
+		<input type="submit" value="전송"/>
+	</form>
+</body>
+</html>
