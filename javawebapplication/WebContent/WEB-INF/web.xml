@@ -11,9 +11,15 @@
   </welcome-file-list>
   
   <!-- 초기화 파라미터 설정 -->
+  <!--  
   <context-param>
   	<description>MySQL의 URL</description>
   	<param-name>url</param-name>
   	<param-value>jdbc:mysql://192.168.0.200:3306/sample?useUnicode=true</param-value>
   </context-param>
+   -->
+   
+   <session-config>
+   		<session-timeout>1</session-timeout>
+   </session-config>
 </web-app>
