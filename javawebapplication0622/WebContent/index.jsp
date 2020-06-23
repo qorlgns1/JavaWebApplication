@@ -11,7 +11,7 @@
 	<ul>
 		<li><a href = "item/list">전체 데이터 조회</a></li>
 		<li><a href = "item/insert">데이터 삽입</a></li>
-		<li><a href = "item/update">데이터 삽입</a></li>
+		<li><a href = "item/update">데이터 수정</a></li>
 		<li><a href = "item/delete">데이터 삭제</a></li>
 	</ul>
 </body>

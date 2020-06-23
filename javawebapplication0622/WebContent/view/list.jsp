@@ -10,7 +10,7 @@
 </head>
 <body>
 	<h3 align="center">데이터 목록 보기</h3>
-	<table align="center">
+	<table align="center" border="1">
 		<tr>
 			<th>코드</th>
 			<th>카테고리</th>
@@ -20,10 +20,32 @@
 			<tr>
 				<td>&nbsp;${item.code}</td>
 				<td>&nbsp;${item.category}</td>
-				<td>&nbsp;${item.title}</td>
+				
+				<!-- 기본키의 값을 파라미터로 전송 --> 
+				<!-- <td><a href="detail?code=${item.code}">${item.title}</a></td>  -->
+				<td>&nbsp;<a href="detail/${item.code}">${item.title}</a></td>
 			</tr>	
 		</c:forEach>
 	
 	</table>
+	<div align = "center">
+		<c:if test="${prev == true}">
+			<a href="list?no=${startpage-1}">이전</a>
+		</c:if>
+		
+		<c:forEach var="idx" begin="${startpage}"
+		end="${endpage}">
+			<c:if test="${pageno == idx}">
+				${pageno}&nbsp;
+			</c:if>
+			<c:if test="${pageno != idx}">
+				<a href="list?no=${idx}">${idx}</a>&nbsp;
+			</c:if>
+		</c:forEach>
+		
+		<c:if test="${next == true}">
+			<a href="list?no=${endpage+1}">다음</a>
+		</c:if>
+	</div>
 </body>
 </html>
