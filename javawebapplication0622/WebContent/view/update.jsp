@@ -12,7 +12,7 @@
 		코드<input type="text" value="${item.code}" name="code" id="code" readonly="readonly"/><br/>
 		카테고리<input type="text" value="${item.category}" name="category" id="category" readonly="readonly"/><br/>
 		이름<input type="text" value="${item.title}" name="title" id="title"/><br/>
-		설명<textarea name="description" id="description" row="10" cols="30">${item.description}</textarea><br/>	 	
+		설명<textarea name="description" id="description" row="10" cols="30">${item.description2}</textarea><br/>	 	
 		<input type="submit" value="수정" />
 		<input type="button" value="메인" id="mainbtn" />
 		<input type="button" value="목록" id="listbtn" />

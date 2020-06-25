@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.ItemDao;
 import domain.Item;
-
+ //controller -> service -> serviceimpl -> dao -> daoimpl -> mapper(지금없음) -> 다시 거꾸로 되돌아감
 public class ItemServiceImpl implements ItemService {
 
 		private ItemDao itemDao;
@@ -59,6 +59,9 @@ public class ItemServiceImpl implements ItemService {
 			//종료 페이지 번호를 임시로 계산
 			//1 - 10, 2 - 10, 12 - 20 , 21 - 30
 			int endPage = (int)(Math.ceil(pageno/10.0)*10.0);
+			
+			
+			
 			int startPage = endPage - 9;
 			
 			//전체 페이지 개수 구하기
@@ -103,27 +106,28 @@ public class ItemServiceImpl implements ItemService {
 				e.printStackTrace();
 			}
 			
-			String category = 
-				request.getParameter("category");
-			String title = 
-				request.getParameter("title");
-			String description = 
-				request.getParameter("description");
+			String category = request.getParameter("category");
+			System.out.println("itemserviceimpl.category : " + category);
+			String title = request.getParameter("title");
+			System.out.println("itemserviceimpl.title : " + category);
+			String description = request.getParameter("description");
+			System.out.println("itemserviceimpl.description : " + description);
 			
 			//2.파라미터를 가지고 필요한 작업 수행
 			//가장 큰 code를 찾아서 +1 을 해서 code에 대입
 			int code = itemDao.maxCode() + 1;
-			
+			System.out.println("serviceimpl.code: " + code);
 			//3.호출할 DAO 메소드의 매개변수를 생성
 			Item item = new Item();
 			item.setCode(code);
 			item.setCategory(category);
 			item.setTitle(title);
 			item.setDescription(description);
-			
+			System.out.println("serviceimpl.item.toString : " + item.toString());
 			//4.DAO 메소드를 호출
 			int result = itemDao.insert(item);
 			
+			System.out.println("itemServiceImpl.result: " + result);
 			//5.결과를 저장
 			request.getSession().setAttribute(
 					"result", result);
@@ -135,14 +139,14 @@ public class ItemServiceImpl implements ItemService {
 			//서비스를 호출하는지 확인
 			//이 코드가 호출되지 않으면 Controller에서 메소드
 			//잘못 호출한 것임
-			System.out.println("3:" + "서비스 호출");
+			//System.out.println("3:" + "서비스 호출");
 
 			//1.파라미터 읽기
 			/*
 			try {
 				request.setCharacterEncoding("utf-8");
 			}catch(Exception e) {
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 				e.printStackTrace();
 			}
 			String code = request.getParameter("code").trim();
@@ -159,14 +163,14 @@ public class ItemServiceImpl implements ItemService {
 			
 			//이 코드가 제대로 호출되지 않으면
 			//파라미터를 읽는 부분이나 비지니스 로직 처리에 문제가 발생
-			System.out.println("4:" + "파라미터 확인");
+			//System.out.println("4:" + "파라미터 확인");
 			
 			//4.DAO 메소드를 호출해서 결과를 저장
 			Item item = itemDao.detail(c);
 			
 			//결과를 출력
 			//DAO가 결과를 제대로 리턴하는지 확인
-			System.out.println("8:" + item);
+			//System.out.println("8:" + item);
 			
 			//5.이동방법에 따라 사용할 데이터를 저장
 			request.setAttribute("item", item);
@@ -178,9 +182,9 @@ public class ItemServiceImpl implements ItemService {
 			//파라미터 인코딩
 			try {
 				request.setCharacterEncoding("utf-8");
-				System.out.println("인코딩 설정");
+				//System.out.println("인코딩 설정");
 			} catch (UnsupportedEncodingException e) {
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 				e.printStackTrace();
 			}
 			

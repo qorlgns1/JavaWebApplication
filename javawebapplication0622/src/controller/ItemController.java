@@ -28,10 +28,12 @@ public class ItemController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//공통된 부분을 제거한 주소를 만듭니다.
 		String contextPath = request.getContextPath();
-		
+		System.out.println("controller.contextPath:" +contextPath);
 		String requestURI = request.getRequestURI();
+		System.out.println("controller.requestURI:" + requestURI);
 		String command = 
 			requestURI.substring(contextPath.length());
+		System.out.println("controller.command:" + command);
 		//요청이 여기까지 도달하는지 확인
 		//여기에 도달하지 않으면 Controller 처리 패턴이 잘못되었거나
 		//링크 설정을 잘못한 것입니다.
@@ -39,11 +41,11 @@ public class ItemController extends HttpServlet {
 		//command 와 아래 처리하지 않는 URL이 일치하지 않으면 처리가 안됨
 		//일치하지 않으면 요청 페이지의 URL을 변경하던지
 		//처리구문의 URL을 변경하던지 해야 합니다.
-		System.out.println("1:" + command);
+		//System.out.println("1:" + command);
 		
 		//전송방식을 저장
 		String method = request.getMethod();
-		
+		System.out.println("controller.method:" + method);
 		//시작 요청이 온 경우 index.jsp 페이지로 포워딩
 		if(command.equals("/")) {
 			RequestDispatcher dispatcher = 
@@ -57,17 +59,16 @@ public class ItemController extends HttpServlet {
 			//현재 요청이 /item/list 이므로
 			//../view/list.jsp 이면
 			//WebContent/view/list.jsp 가 됩니다.
-			RequestDispatcher dispatcher = 
-					request.getRequestDispatcher(
-						"../view/list.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("../view/list.jsp");
 			dispatcher.forward(request, response);
-		}else if(command.equals("/item/insert") 
-				&& method.equals("GET")) {
+		}else if(command.equals("/item/insert") && method.equals("GET")) {
 			//입력 페이지로 이동
 			RequestDispatcher dispatcher = 
 					request.getRequestDispatcher(
 						"../view/insert.jsp");
 			dispatcher.forward(request, response);
+			System.out.println("controller.request: " + request);
+			System.out.println("controller.response: " + response);
 		}else if(command.equals("/item/insert") 
 				&& method.equals("POST")) {
 			//삽입을 처리
@@ -78,7 +79,7 @@ public class ItemController extends HttpServlet {
 		}else if(command.indexOf("/item/detail") >= 0) {
 			//여기까지 오는지 확인 - 1번은 출력되고 이것은 출력안되면
 			//요청 페이지의 요청 URL과 비교하는 URL 수정
-			System.out.println("2:" + command);
+			//System.out.println("2:" + command);
 			//상세보기를 처리
 			itemService.detail(request, response);
 			//결과 페이지로 이동
