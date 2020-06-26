@@ -1,5 +1,7 @@
 package dao;
 
+import domain.User;
+
 public class UserDao extends AbstractDao {
 	//Singleton 패턴을 적용하기 위한 코드
 	//인스턴스를 하나만 생성하는 디자인 패턴
@@ -76,5 +78,28 @@ public class UserDao extends AbstractDao {
 			close();
 			return result;
 					
+		}
+		public int register (User user) {
+			int result = -1;
+			connect();
+			try {
+				pstmt= con.prepareStatement("insert into user0624(email,password,nickname,image) values(?,?,?,?)");
+				pstmt.setString(1, user.getEmail());
+				pstmt.setString(2, user.getPassword());
+				pstmt.setString(3, user.getNickname());
+				pstmt.setString(4, user.getImage());
+				
+				result = pstmt.executeUpdate();
+				
+
+			}catch(Exception e) {
+				System.out.println("DAO클래스 삽입 실패");
+				System.out.println("DAO : " + e.getMessage());
+				e.printStackTrace();
+			}
+			
+			close();
+			System.out.println("UserDao.result : " + result);
+			return result;
 		}
 }

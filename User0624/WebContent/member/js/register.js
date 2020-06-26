@@ -103,4 +103,65 @@ window.addEventListener('load',function(event){
 		
 	})
 	});
+	
+	//회원가입 버튼을 누르면
+	registerbtn.addEventListener("click", function(event){
+		//폼의 데이터를 전송할 때는 유효성 검사를 해주어야 합니다.
+		//필수 항목 검사, 형식에 맞는지, 값의 제한이 있는 경우 그 값인지 등
+		if(email.value.trim().length < 1){
+			emailmsg.innerHTML = "이메일은 필수 항목";
+			emailmsg.style.color = "red";
+			return;	
+		}
+		//형식 검사 - 정규식을 이용
+		var emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		
+		if(emailRegExp.test(email.value) == false){
+			emailmsg.innerHTML = "이메일형식에 맞지 않습니다.";
+			emailmsg.style.color = "red";
+			return;	
+			
+			
+		}
+		
+		if(emailcheck == false){
+			emailmsg.innerHTML = "사용중인 이메일입니다."
+			emailmsg.style.color = "red";
+			return;	
+		}
+		if(nicknamecheck == false){
+			nicknamemsg.innerHTML = "사용중인 닉네임 입니다."
+			nicknamemsg.style.color = "red";
+			return;	
+		}
+		
+		//ajax 요청 객체를 생성
+		var request = new XMLHttpRequest();
+		//요청 생성
+		request.open('post','register', true);
+		//폼의 데이터 생성
+		var formData = new FormData(registerform);
+		//요청을 전송
+		request.send(formData);
+		//데이터를 전송하고 결과를 받아왔을 때
+		request.addEventListener('load', function(event){
+		var data = JSON.parse(event.target.responseText);	
+		if(data.result == true){
+			//메인으로 이동
+			alert("회원가입이 성공하였습니다.");
+			location.href = "../";
+			
+		}else{
+			alert("웹사이트에 오류가 있습니다. 빠른 시일내에 복구하겠습니다.");
+			return;
+			
+		}
+	})
+	
+	
+	
+	
+	
+	});
+	
 });
