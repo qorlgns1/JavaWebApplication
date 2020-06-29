@@ -68,12 +68,30 @@ public class UserController extends HttpServlet {
 					//System.out.println("userService.emailCheck.response : " + response);
 					RequestDispatcher dispatcher = request.getRequestDispatcher("../member/emailcheck.jsp");
 					dispatcher.forward(request, response);
-					System.out.println("이메일체크 요청끝");
 					
 				}
 				else if(command.equals("/user/nicknamecheck")) {
 					userService.nicknameCheck(request, response);
 					RequestDispatcher dispatcher = request.getRequestDispatcher("../member/nicknamecheck.jsp");
+					dispatcher.forward(request, response);
+				}
+				else if(command.equals("/user/login") && method.equals("GET")) {
+					RequestDispatcher dispatcher = request.getRequestDispatcher("../member/login.jsp");
+					dispatcher.forward(request, response);
+				}
+				else if(command.equals("/user/login") && method.equals("POST")) {
+					System.out.println("UserController.login.post 요청 도착");
+					//로그인 처리를 위한 서비스 메소드 호출
+					//작업을 처리해야 하는 경우에는 서비스의 메소드를 호출하는 것이고
+					//단순 페이지 이동은 서비스의 메소드를 호출하지 않음
+					//정보수정의 경우는 상세 데이터를 가져오고 수정
+					userService.login(request, response);
+					RequestDispatcher dispatcher = request.getRequestDispatcher("../member/loginresult.jsp");
+					dispatcher.forward(request, response);
+				}
+				else if(command.equals("/user/proxy") && method.equals("GET")) {
+					userService.proxy(request, response);
+					RequestDispatcher dispatcher = request.getRequestDispatcher("../member/proxy.jsp");
 					dispatcher.forward(request, response);
 				}
 	}

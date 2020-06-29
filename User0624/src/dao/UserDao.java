@@ -22,7 +22,7 @@ public class UserDao extends AbstractDao {
 	
 	//email 중복 검사를 위한 메소드
 	public boolean emailCheck(String email) {
-		System.out.println("userDAO.email: " + email);
+		//System.out.println("userDAO.emailcheck.email 파라미터값 : " + email);
 		boolean result = false;
 		connect();
 		try {
@@ -46,7 +46,7 @@ public class UserDao extends AbstractDao {
 		}
 		
 		close();
-		System.out.println("UserDAO 리턴값: " + result);
+		//System.out.println("UserDAO.emailcheck.result: " + result);
 		return result;
 			
 	}
@@ -99,7 +99,38 @@ public class UserDao extends AbstractDao {
 			}
 			
 			close();
-			System.out.println("UserDao.result : " + result);
+			//System.out.println("UserDao.result : " + result);
 			return result;
+		}
+		
+		//로그인 처리를 위한 메소드
+		public User login(String email) {
+			//없는 아이디인 경우는 null을 리턴
+			User user = null;
+			connect();
+			try {
+				//SQL 만들기
+				System.out.println("UserDao.login 시작하는지 확인하기");
+				pstmt = con.prepareStatement("select * from user0624 where email=?");
+				pstmt.setString(1, email);
+				
+				rs = pstmt.executeQuery();
+				//데이터 읽어서 저장
+				if(rs.next()) {
+					user = new User();
+					user.setEmail(rs.getString("email"));
+					user.setPassword(rs.getString("password"));
+					user.setNickname(rs.getString("nickname"));
+					user.setImage(rs.getString("image"));
+				}
+				
+			}catch(Exception e) {
+				System.out.println("DAO : " + e.getMessage());
+				e.printStackTrace();
+			}
+			close();
+			System.out.println("UserDao.login.user 값 확인 : " + user);
+			return user;
+			
 		}
 }

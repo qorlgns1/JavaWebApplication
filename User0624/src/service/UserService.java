@@ -10,5 +10,6 @@ public interface UserService {
 	public void emailCheck(HttpServletRequest request, HttpServletResponse response);
 	public void nicknameCheck(HttpServletRequest request, HttpServletResponse response);
 	public void register(HttpServletRequest request, HttpServletResponse response);
-
+	public void login(HttpServletRequest request, HttpServletResponse response);
+	public void proxy(HttpServletRequest request, HttpServletResponse response);
 }
